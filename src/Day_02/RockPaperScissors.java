@@ -8,8 +8,8 @@ import java.util.List;
 
 public class RockPaperScissors {
 
-    private static String opponentCode = "ABC";
-    private static String myCode = "XYZ";
+    private static final String opponentCode = "ABC";
+    private static final String myCode = "XYZ";
 
     public static void main(String[] args) throws IOException {
         System.out.println(getMyScoreStratA(Paths.get("resources/Day_02.txt")));
