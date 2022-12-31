@@ -9,22 +9,45 @@ import java.util.List;
 public class CampCleanup {
 
     public static void main(String[] args) throws IOException {
-        System.out.println(amountOfRedundantCleanups(Paths.get("resources/Day_04.txt")));
+        System.out.println(amountOfDuplicateWorks(Paths.get("resources/Day_04.txt")));
+        System.out.println(amountOfDuplicatePairs(Paths.get("resources/Day_04.txt")));
     }
 
-
-    public static int amountOfRedundantCleanups(Path path) throws IOException {
+    // Part 1
+    public static int amountOfDuplicateWorks(Path path) throws IOException {
         List<String> input = Files.readAllLines(path);
-        int pairs = 0;
+        int duplicateWorks = 0;
 
         for (String line : input) {
             String firstElf = line.split(",")[0];
             String secondElf = line.split(",")[1];
 
-            if (Integer.parseInt(firstElf.split("-")[0]) <= Integer.parseInt(secondElf.split("-")[0]) && Integer.parseInt(firstElf.split("-")[1]) >= Integer.parseInt(secondElf.split("-")[1])) pairs++;
-            else if (Integer.parseInt(firstElf.split("-")[0]) >= Integer.parseInt(secondElf.split("-")[0]) && Integer.parseInt(firstElf.split("-")[1]) <= Integer.parseInt(secondElf.split("-")[1])) pairs++;
+            if (Integer.parseInt(firstElf.split("-")[0]) <= Integer.parseInt(secondElf.split("-")[0]) &&
+                    Integer.parseInt(firstElf.split("-")[1]) >= Integer.parseInt(secondElf.split("-")[1])) duplicateWorks++;
+            else if (Integer.parseInt(firstElf.split("-")[0]) >= Integer.parseInt(secondElf.split("-")[0]) &&
+                     Integer.parseInt(firstElf.split("-")[1]) <= Integer.parseInt(secondElf.split("-")[1])) duplicateWorks++;
         }
-        return pairs;
+        return duplicateWorks;
+    }
+
+
+    // Part 2
+    public static int amountOfDuplicatePairs(Path path) throws IOException {
+        List<String> input = Files.readAllLines(path);
+        int duplicatePairs = 0;
+
+        for (String line : input) {
+            String firstElf = line.split(",")[0];
+            String secondElf = line.split(",")[1];
+
+            for (int i = Integer.parseInt(firstElf.split("-")[0]); i <= Integer.parseInt(firstElf.split("-")[1]); i++) {
+                if (i >= Integer.parseInt(secondElf.split("-")[0]) && i <= Integer.parseInt(secondElf.split("-")[1])) {
+                    duplicatePairs++;
+                    break;
+                }
+            }
+        }
+        return duplicatePairs;
     }
 
 }
